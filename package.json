@@ -1,0 +1,13 @@
+{
+  "name": "shigatsuel__typechain",
+  "version": "1.0.0",
+  "description": "Learning TypeScript by Making a Blockchain with it",
+  "main": "index.js",
+  "repository": "https://github.com/ShigatsuEl/typechain.git",
+  "author": "MinChan Lee <shigatsu970704@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "prestart": "tsc"
+  }
+}
