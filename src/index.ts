@@ -69,13 +69,31 @@ const createNewBlock = (data: string): Block => {
   return newBlock;
 };
 
-const isBlockValid = (candidate: Block, previous: Block): boolean => {
-  if (!Block.validateStructure(candidate)) {
+const getHashForBlock = (aBlock: Block): string =>
+  Block.calculateBlockHash(
+    aBlock.index,
+    aBlock.previousHash,
+    aBlock.timestamp,
+    aBlock.data
+  );
+
+const isBlockValid = (candidateBlock: Block, previousBlock: Block): boolean => {
+  if (!Block.validateStructure(candidateBlock)) {
     return false;
-  } else if (previous.index + 1 !== candidate.index) {
+  } else if (previousBlock.index + 1 !== candidateBlock.index) {
     return false;
-  } else if (previous.hash !== candidate.hash) {
+  } else if (previousBlock.hash !== candidateBlock.hash) {
     return false;
+  } else if (getHashForBlock(candidateBlock) !== candidateBlock.hash) {
+    return false;
+  } else {
+    return true;
+  }
+};
+
+const addBlock = (candidateBlock: Block): void => {
+  if (isBlockValid(candidateBlock, getLatestBlock())) {
+    blockchain.push(candidateBlock);
   }
 };
 
